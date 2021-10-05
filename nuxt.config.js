@@ -21,8 +21,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -48,4 +47,12 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  build: {
+    filenames: {
+      chunk: ({ isDev }) => isDev ? '[name].js' : '[chunkhash].js'
+    }
+  },
+   router: {
+      base: '/DrinkShop/'
+   }
 }
