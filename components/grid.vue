@@ -55,15 +55,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .product__grid {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 30px;
 
   .product {
     border: 2px solid #232344;
     padding: 10px 0;
-    min-width: calc(20% - 40px);
-    max-width: calc(20% - 40px);
+    min-width: calc(20% - 4px - 30px);
+    max-width: calc(20% - 4px - 30px);
     border-radius: 10px;
     cursor:  pointer;
     .product__image {

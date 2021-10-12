@@ -103,6 +103,9 @@ const createStore = () => {
       },
       deleteBagItem: (state, vals) => {
         state.bag.splice(state.bag.indexOf(vals), 1)
+      },
+      resetBag: (state, vals) => {
+        state.bag = []
       }
     },
     getters: {

@@ -1,6 +1,14 @@
 <template>
   <div class="shipping__component">
-    <h3>Shipping bag</h3>
+    <div class="shipping__header">
+      <h3>Your Drink<span>BAG</span></h3>
+      <div class="clear__bag" v-on:click="resetBag()">
+        Clear bag
+      </div>
+      <div class="alert">
+        <p>All your ordered glasses will be served at table, don't worry!</p>
+      </div>
+    </div>
     <div class="product__grid">
       <div v-for="(d, i) in getBag" :key="i" class="product">
         <div class="product__in">
@@ -8,21 +16,22 @@
             <img :src="require(`~/assets/${d.image}`)">
           </div>
           <div class="product__infos">
-            <div class="product__infos_l">
-              <h3>{{ d.name }}</h3>
-            </div>
-            <div class="product__infos_r">
-              <span>{{ d.price }}€</span>
-            </div>
+            <h3>{{ d.name }}</h3>
+            <span>{{ d.price }}€</span>
           </div>
         </div>
         <div v-on:click="deleteShippingItem(d)" class="product__controller">
-          X
+          <font-awesome-icon :icon="['fas', 'times']"  />
         </div>
       </div>
     </div>
     <div class="shipping__bottom">
-      <span>Total : </span> {{ calculedTotal.toFixed(2) }}€
+      <div class="shipping__total">
+        <span>Total : </span> {{ calculedTotal.toFixed(2) }}€
+      </div>
+      <div class="shipping__payment">
+        <font-awesome-icon :icon="['fas', 'lock']"  /> Payement
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +52,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'deleteBagItem'
+      'deleteBagItem',
+      'resetBag'
     ]),
     deleteShippingItem (item) {
       this.deleteBagItem(item)
@@ -57,30 +67,32 @@ export default {
   background: #292951;
   height: 100%;
   overflow-y: hidden;
-  .shipping__bottom {
-    position: absolute;
-    bottom: 0px;
-    height: 100px;
-    width: 100%;
-    padding: 0 20px;
-    background: #494990;
-    display: flex;
-    align-items: center;
-    span {
-      font-weight: bolder;
-      display: block;
-      margin-right: 10px;
+  overflow-x: hidden;
+  .shipping__header {
+    h3 {
+      margin: 0;
+      padding: 20px;
+      span {
+        color: #4fc08d;
+      }
+    }
+    .alert {
+      padding: 0 20px;
+      font-size: 12px;
+      color: #7a7a7a;
+    }
+    .clear__bag {
+      width: calc(100% - 40px);
+      background: #a74239;
+      padding: 10px 20px;
+      text-align: center;
+      cursor: pointer;
     }
   }
-  h3 {
-    margin: 0;
-    padding: 20px;
-  }
   .product__grid {
-    margin-top: 25px;
-    height: 75%;
+    height: 80%;
     overflow-y: scroll;
-    padding: 0 20px;
+    padding: 0 10px;
     &::-webkit-scrollbar{
       width: 4px;
       height: 4px;
@@ -102,7 +114,6 @@ export default {
       align-items: center;
       margin: 5px 0;
       .product__in {
-        border: 2px solid #232344;
         padding: 10px 0;
         border-radius: 10px;
         width: 90%;
@@ -111,6 +122,7 @@ export default {
         h3 {
           font-size: 13px;
           padding: 5px;
+          width: 100%;
         }
       }
       .product__controller {
@@ -118,8 +130,9 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #B01000;
-        cursor:  pointer;
+        color: #d76459;
+        cursor: pointer;
+        font-size: 18px;
       }
       .product__image {
         display: flex;
@@ -132,33 +145,47 @@ export default {
           filter: invert(28%) sepia(43%) saturate(1022%) hue-rotate(204deg) brightness(88%) contrast(83%);
         }
       }
-
       .product__infos {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
-        gap: 20px;
         padding: 0 10px;
-
+        width: 90%;
         h3 {
           margin: 0;
+          width: 80%;
         }
-
-        .product__infos_l {
-          span {
-            display: block;
-            margin-top: 5px;
-            color: #494990;
-          }
-        }
-
-        .product__infos_r {
-          span {
-            display: block;
-            margin-top: 3px;
-          }
+        span {
+          display: block;
+          width: 20%;
+          text-align: right;
         }
       }
+    }
+  }
+  .shipping__bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    .shipping__total {
+      width: 100%;
+      font-weight: bolder;
+      display: block;
+      margin-right: 10px;
+      background: #494990;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      span {
+        display: block;
+        margin-right: 10px;
+        font-weight: normal;
+      }
+    }
+    .shipping__payment {
+      text-align: center;
+      background: #4fc08d;
+      padding: 20px;
     }
   }
 }
